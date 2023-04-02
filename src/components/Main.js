@@ -3,10 +3,7 @@ import avatar from '../Images/Avatar.png'
 
 
 
-function Main() {
-function handleEditAvatarClick(){
- document.querySelector('.profile__avatar-button').classList.add(`popup_opened`);
-}
+function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
     return (
         <main className="content">
@@ -16,15 +13,15 @@ function handleEditAvatarClick(){
           src={avatar}
           alt=""
         />
-        <button className="profile__avatar-button"  onClick={handleEditAvatarClick}></button>
+        <button className="profile__avatar-button"  onClick={onEditAvatar}></button>
         <div className="profile__info">
           <div className="profile__name">
             <h1 className="profile__title">Жак-Ив Кусто</h1>
-            <button className="profile__edit-button" type="button"></button>
+            <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
           </div>
           <p className="profile__subtitle">Исследователь океана</p>
         </div>
-        <button className="profile__button" type="button">
+        <button className="profile__button" type="button" onClick={onAddPlace}>
           <img
             className="profile__img"
             src={vector}

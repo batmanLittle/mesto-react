@@ -1,24 +1,73 @@
+import React, { useState, useEffect } from 'react';
 import '../index.css'
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer'
 import trash  from '../Images/Trash.svg'
+import PopupWithForm from './PopupWithForm'
 
 function App() {
-  
+
+const [isEditProfilePopupOpen, setisEditProfilePopupOpen]= useState(false);
+const [isAddPlacePopupOpen, setisAddPlacePopupOpen]= useState(false);
+const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen]= useState(false);
+
+  function handleEditAvatarClick(){
+    setisEditAvatarPopupOpen(true);
+   }
+   
+   function handleEditProfileClick(){
+    setisEditProfilePopupOpen(true);
+    }
+   
+    function handleAddPlaceClick(){
+      setisAddPlacePopupOpen(true);
+    }
+    function closeAllPopups(){
+      setisAddPlacePopupOpen(false);
+      setisEditProfilePopupOpen(false);
+      setisEditAvatarPopupOpen(false);
+    }
+
+    useEffect(() => {
+      function handleEscClose(e) {
+        if (e.code === `Escape`) {
+          closeAllPopups();
+        }
+      }
+
+      function handleOverlayClose(evt){
+        if (evt.target.classList.contains(`popup_opened`)) {
+          closeAllPopups();
+        }
+      }
+      document.addEventListener(`keydown`, handleEscClose);
+      document.addEventListener(`mousedown`, handleOverlayClose);
+
+  return () => {
+    document.removeEventListener(`keydown`, handleEscClose);
+    document.removeEventListener(`mousedown`, handleOverlayClose);
+  };
+
+      
+  }, [isEditProfilePopupOpen, isEditAvatarPopupOpen, isAddPlacePopupOpen]);
+
+
+
   return (
     <div className="page">
     <Header/>
-    <Main />
+    <Main   onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}/>
     <Footer/>
-
-    <div className="popup popup_type_profile popup_overlay">
-      <div className="popup__container">
-        <form className="popup__form" name="profile-form" noValidate>
-          <button className="popup__close" type="button"></button>
-          <h2 className="popup__title">Редактировать профиль</h2>
-
-          <input
+    <PopupWithForm name='profile'
+                  title='Редактировать профиль'
+                  text='Сохранить'
+                  isOpen={isEditProfilePopupOpen}
+                  onClose = {closeAllPopups}
+                  >
+                    <input
             id="name-input"
             className="popup__input popup__input_data_name"
             type="text"
@@ -42,16 +91,16 @@ function App() {
             maxLength="200"
           />
           <span className="job-input-error popup__input-error"></span>
-          <button type="submit" className="popup__button">Сохранить</button>
-        </form>
-      </div>
-    </div>
-    <div className="popup popup_type_card popup_overlay">
-      <div className="popup__container">
-        <form className="popup__form" name="card-form" noValidate>
-          <button className="popup__close" type="button"></button>
-          <h2 className="popup__title popup__title_type_text">Новое место</h2>
-          <input
+    
+  </PopupWithForm>
+
+  <PopupWithForm name='card'
+                  title='Новое место'
+                  text='Сохранить'
+                  isOpen={isAddPlacePopupOpen}
+                  onClose = {closeAllPopups}
+                  >
+                    <input
             id="title-input"
             className="popup__input popup__input_data_title"
             type="text"
@@ -71,36 +120,23 @@ function App() {
             required
           />
           <span className="image-input-error popup__input-error"></span>
-          <button type="submit" className="popup__button">Сохранить</button>
-        </form>
-      </div>
-    </div>
-    <div className="popup popup_type_image popup_overlay">
-      <div className="popup__container">
-        <img className="popup__zoom-image" src="#" alt="#" />
-        <button className="popup__close" type="button"></button>
-        <h2 className="popup__zoom-title"></h2>
-      </div>
-    </div>
+            
+</PopupWithForm>
 
-    <div className="popup popup_type_delete popup_overlay">
-      <div className="popup__container">
-        <form className="popup__form" name="delete-form" noValidate>
-          <button className="popup__close" type="button"></button>
-          <h2 className="popup__title popup__title_type_delete">Вы уверены?</h2>
-          <button type="submit" className="popup__button popup__button_type_delete">
-            Да
-          </button>
-        </form>
-      </div>
-    </div>
+    
+<PopupWithForm name='delete'
+                  title='Вы уверены?'
+                  text='Да'
+                  onClose = {closeAllPopups}
+                  >
+</PopupWithForm>
 
-    <div className="popup popup_type_avatar popup_overlay">
-      <div className="popup__container">
-        <form className="popup__form" name="avatar-form" noValidate>
-          <button className="popup__close" type="button"></button>
-          <h2 className="popup__title popup__title_type_text">Обновить аватар</h2>
-          <input
+<PopupWithForm name='avatar'
+                  title='Обновить аватар'
+                  text='Сохранить'
+                  isOpen={isEditAvatarPopupOpen}
+                  onClose = {closeAllPopups}>
+                    <input
             id="avatar-input"
             className="popup__input popup__input_data_img"
             name="avatar"
@@ -109,8 +145,12 @@ function App() {
             required
           />
           <span className="avatar-input-error popup__input-error"></span>
-          <button type="submit" className="popup__button">Сохранить</button>
-        </form>
+</PopupWithForm>
+    <div className="popup popup_type_image popup_overlay">
+      <div className="popup__container">
+        <img className="popup__zoom-image" src="#" alt="#" />
+        <button className="popup__close" type="button"></button>
+        <h2 className="popup__zoom-title"></h2>
       </div>
     </div>
     <template className="template">
