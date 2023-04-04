@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react';
 import '../index.css'
 import Header from './Header';
 import Main from './Main';
-import Footer from './Footer'
-import trash  from '../Images/Trash.svg'
-import PopupWithForm from './PopupWithForm'
+import Footer from './Footer';
+
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from "./ImagePopup";
+
 
 function App() {
-
 const [isEditProfilePopupOpen, setisEditProfilePopupOpen]= useState(false);
 const [isAddPlacePopupOpen, setisAddPlacePopupOpen]= useState(false);
 const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen]= useState(false);
+const [selectedCard, setSelectedCard] =  useState(false);
+
+function  handleCardClick(card){
+ setSelectedCard(card);
+}
 
   function handleEditAvatarClick(){
     setisEditAvatarPopupOpen(true);
@@ -27,6 +33,7 @@ const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen]= useState(false);
       setisAddPlacePopupOpen(false);
       setisEditProfilePopupOpen(false);
       setisEditAvatarPopupOpen(false);
+      setSelectedCard(false);
     }
 
     useEffect(() => {
@@ -59,7 +66,8 @@ const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen]= useState(false);
     <Header/>
     <Main   onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}/>
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}/>
     <Footer/>
     <PopupWithForm name='profile'
                   title='Редактировать профиль'
@@ -146,30 +154,10 @@ const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen]= useState(false);
           />
           <span className="avatar-input-error popup__input-error"></span>
 </PopupWithForm>
-    <div className="popup popup_type_image popup_overlay">
-      <div className="popup__container">
-        <img className="popup__zoom-image" src="#" alt="#" />
-        <button className="popup__close" type="button"></button>
-        <h2 className="popup__zoom-title"></h2>
-      </div>
-    </div>
-    <template className="template">
-      <li className="place">
-        <img className="place__img" src="#" alt="#" />
-        <div className="place__element">
-          <h2 className="place__title"></h2>
-          <div className="place__icon-group">
-            <button className="place__icon" type="button"></button>
-            <p className="place__icon-number">0</p>
-          </div>
-        </div>
-        <img
-          className="place__delete"
-          src={trash}
-          alt=""
-        />
-      </li>
-    </template>
+    <ImagePopup 
+                card={selectedCard}
+                onClose = {closeAllPopups} />
+    
   </div>
   
   );
