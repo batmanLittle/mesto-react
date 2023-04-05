@@ -1,26 +1,26 @@
-import trash  from '../Images/Trash.svg'
+import trash from "../Images/Trash.svg";
 
-function Card({card, onCardClick}){
+function Card({ card, onCardClick }) {
   function handleClick() {
     onCardClick(card);
-  }  
-    return(
-        <li className="place" key={card._id}> 
-        <img className="place__img" src={card.link} alt={card.name} onClick={handleClick}/>
-        <div className="place__element">
-          <h2 className="place__title">{card.name}</h2>
-          <div className="place__icon-group">
-            <button className="place__icon" type="button"></button>
-            <p className="place__icon-number">{card.likes.length}</p>
-          </div>
+  }
+  return (
+    <li className="place">
+      <img
+        className="place__img"
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
+      />
+      <div className="place__element">
+        <h2 className="place__title">{card.name}</h2>
+        <div className="place__icon-group">
+          <button className="place__icon" type="button"></button>
+          <p className="place__icon-number">{card.likes.length}</p>
         </div>
-        <img
-        
-          className="place__delete"
-          src={trash}
-          alt=""
-        />
-      </li>
-    )
+      </div>
+      <img className="place__delete" src={trash} alt="Иконка-удаление" />
+    </li>
+  );
 }
 export default Card;
