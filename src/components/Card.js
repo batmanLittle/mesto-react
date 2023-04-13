@@ -5,7 +5,6 @@ import { currentUserContext } from "../contexts/CurrentUserContext";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   function handleClick() {
     onCardClick(card);
-    console.log(onCardLike);
   }
   function handleLikeClick() {
     onCardLike(card);

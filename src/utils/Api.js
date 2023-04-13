@@ -79,4 +79,3 @@ const api = new Api(
   "62914e9b-54c6-4b1a-9195-b5e234af2b53"
 );
 export default api;
-

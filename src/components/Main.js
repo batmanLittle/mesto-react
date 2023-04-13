@@ -34,7 +34,7 @@ function Main({
               onClick={onEditProfile}
             ></button>
           </div>
-          <p className="profile__subtitle">{currentUser.description}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button className="profile__button" type="button" onClick={onAddPlace}>
           <img className="profile__img" src={vector} alt="Плюс" />

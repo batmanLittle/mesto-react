@@ -1,4 +1,14 @@
-function PopupWithForm({ title, name, children, isOpen, text, onClose }) {
+function PopupWithForm({
+  title,
+  name,
+  children,
+  isOpen,
+  text,
+  onClose,
+  onSubmit,
+  textLoading,
+  isLoading,
+}) {
   return (
     <div
       className={`popup popup_overlay popup_type_${name} ${
@@ -6,7 +16,7 @@ function PopupWithForm({ title, name, children, isOpen, text, onClose }) {
       }`}
     >
       <div className="popup__container">
-        <form className="popup__form" name={name}>
+        <form className="popup__form" name={name} onSubmit={onSubmit}>
           <button
             className="popup__close"
             type="button"
@@ -15,7 +25,7 @@ function PopupWithForm({ title, name, children, isOpen, text, onClose }) {
           <h2 className="popup__title">{title}</h2>
           {children}
           <button type="submit" className="popup__button">
-            {text}
+            {isLoading ? textLoading : text}
           </button>
         </form>
       </div>
