@@ -47,6 +47,7 @@ function AddPlacePopup({ isOpen, onClose, onAddCard, isLoading }) {
         maxLength="30"
         required
         onChange={handleChangeName}
+        value={name}
       />
       <span className="title-input-error popup__input-error"></span>
       <input
@@ -57,6 +58,7 @@ function AddPlacePopup({ isOpen, onClose, onAddCard, isLoading }) {
         placeholder={"Ссылка на картинку"}
         required
         onChange={handleChangeLink}
+        value={link}
       />
       <span className="image-input-error popup__input-error"></span>
     </PopupWithForm>
